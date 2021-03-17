@@ -29,13 +29,13 @@ public class Calculator {
             Integer num = Integer.parseInt(str);
             if (num < 0) {
                 negativNumbers.add(num);
+            } else if (num <= 1000) {
+                ans = ans + num;
             }
-            ans = ans + num;
         }
         if (negativNumbers.isEmpty()) {
             return ans;
         } else {
-            System.out.println(negativNumbers.toString());
             throw new NegativesNotAllowedRuntimeExeption(negativNumbers.toString());
         }
     }
