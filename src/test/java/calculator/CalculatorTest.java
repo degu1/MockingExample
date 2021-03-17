@@ -1,37 +1,23 @@
 package calculator;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorTest {
 
-    @Test
-    void addTestEmptyEntery(){
+    @ParameterizedTest
+    @CsvFileSource(resources = "/testDataAdd.csv")
+   // @CsvSource({"1, 1", "2, 1,1"})
+    void addTest(int expected, String str) {
         Calculator calculator = new Calculator();
-        String numbers = "";
 
-        var actual = calculator.add(numbers);
+        var actual = calculator.add(str);
 
-        assertEquals(0,actual);
-    }
+        assertEquals(expected, actual);
 
-    @Test
-    void addTestOneEntery(){
-        Calculator calculator = new Calculator();
-        String numbers = "1";
-
-        var actual = calculator.add(numbers);
-
-        assertEquals(1,actual);
-    }
-    @Test
-    void addTestTwoEntery(){
-        Calculator calculator = new Calculator();
-        String numbers = "1,2";
-
-        var actual = calculator.add(numbers);
-
-        assertEquals(3,actual);
     }
 }
