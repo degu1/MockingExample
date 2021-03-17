@@ -1,7 +1,6 @@
 package calculator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Calculator {
@@ -14,14 +13,17 @@ public class Calculator {
         }
 
         if (hasDelimiter(numbers)) {
-            int index = numbers.indexOf("\\n");
-            int combrackets = 0;
-            if (numbers.indexOf("[") != -1 && numbers.indexOf("]") != -1)
-            {combrackets = 1;}
-            String delimiter = numbers.substring(2+combrackets, index-combrackets);
 
-            numbers = numbers.substring(index + 2);
-            numbers = numbers.replace(delimiter, ",");
+            if (numbers.indexOf("[") != -1 && numbers.indexOf("]") != -1) {
+                numbers = delimiterRefactor(numbers);
+
+            } else {
+                int index = numbers.indexOf("\\n");
+                String delimiter = numbers.substring(2, index);
+                numbers = numbers.substring(index + 2);
+                numbers = numbers.replace(delimiter, ",");
+
+            }
         }
 
         String[] numberArr = numbers.replace("\\n", ",").split(",");
@@ -29,7 +31,8 @@ public class Calculator {
 
         List<Integer> negativNumbers = new ArrayList<>();
 
-        for (String str : numberArr) {
+        for (
+                String str : numberArr) {
             Integer num = Integer.parseInt(str);
             if (num < 0) {
                 negativNumbers.add(num);
@@ -42,6 +45,29 @@ public class Calculator {
         } else {
             throw new NegativesNotAllowedRuntimeExeption(negativNumbers.toString());
         }
+
+    }
+
+    private String delimiterRefactor(String numbers){
+        String numbersSubString = numbers.substring(2);
+        boolean delimiterBrackets = false;
+
+        delimiterBrackets = true;
+        while (delimiterBrackets) {
+            int indexStart = numbersSubString.indexOf("[") + 1;
+            int indexStop = numbersSubString.indexOf("]");
+            String delimiter = numbersSubString.substring(indexStart, indexStop);
+            numbersSubString = numbersSubString.substring(indexStop + 1);
+            numbersSubString = numbersSubString.replace(delimiter, ",");
+
+            if (numbersSubString.indexOf("[") == -1) {
+                delimiterBrackets = false;
+            }
+        }
+
+        int i = numbersSubString.indexOf("\\n");
+
+        return numbersSubString.substring(i + 2);
     }
 
     private boolean hasDelimiter(String str) {
