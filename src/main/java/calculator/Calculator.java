@@ -15,7 +15,11 @@ public class Calculator {
 
         if (hasDelimiter(numbers)) {
             int index = numbers.indexOf("\\n");
-            String delimiter = numbers.substring(2, index);
+            int combrackets = 0;
+            if (numbers.indexOf("[") != -1 && numbers.indexOf("]") != -1)
+            {combrackets = 1;}
+            String delimiter = numbers.substring(2+combrackets, index-combrackets);
+
             numbers = numbers.substring(index + 2);
             numbers = numbers.replace(delimiter, ",");
         }
@@ -44,6 +48,7 @@ public class Calculator {
         if (str.length() < 4) return false;
         if (!str.substring(0, 2).equals("//")) return false;
         if (!str.contains("\\n")) return false;
+
         return true;
     }
 }
