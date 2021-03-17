@@ -10,7 +10,8 @@ public class Calculator {
         if (numbers.equals("")) {
             return 0;
         }
-        String[] numberArr = numbers.split(",");
+
+        String[] numberArr = numbers.replace("\\n", ",").split(",");
         int ans = 0;
         for (String str : numberArr) {
             ans = ans + Integer.parseInt(str);

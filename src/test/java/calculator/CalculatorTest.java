@@ -11,7 +11,6 @@ class CalculatorTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/testDataAdd.csv")
-   // @CsvSource({"1, 1", "2, 1,1"})
     void addTest(int expected, String str) {
         Calculator calculator = new Calculator();
 
