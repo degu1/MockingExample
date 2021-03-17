@@ -6,7 +6,9 @@ import java.util.List;
 
 public class Calculator {
 
-    public int add(String numbers) {
+    public int add(String numbers) throws NegativesNotAllowedRuntimeExeption {
+
+
         if (numbers.equals("")) {
             return 0;
         }
@@ -20,10 +22,22 @@ public class Calculator {
 
         String[] numberArr = numbers.replace("\\n", ",").split(",");
         int ans = 0;
+
+        List<Integer> negativNumbers = new ArrayList<>();
+
         for (String str : numberArr) {
-            ans = ans + Integer.parseInt(str);
+            Integer num = Integer.parseInt(str);
+            if (num < 0) {
+                negativNumbers.add(num);
+            }
+            ans = ans + num;
         }
-        return ans;
+        if (negativNumbers.isEmpty()) {
+            return ans;
+        } else {
+            System.out.println(negativNumbers.toString());
+            throw new NegativesNotAllowedRuntimeExeption(negativNumbers.toString());
+        }
     }
 
     private boolean hasDelimiter(String str) {
