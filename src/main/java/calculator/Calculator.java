@@ -1,7 +1,9 @@
 package calculator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Calculator {
 
@@ -15,29 +17,26 @@ public class Calculator {
 
             if (numbers.indexOf("[") != -1 && numbers.indexOf("]") != -1) {
                 numbers = delimiterRefactor(numbers);
-
             } else {
                 int index = numbers.indexOf("\\n");
                 String delimiter = numbers.substring(2, index);
                 numbers = numbers.substring(index + 2);
                 numbers = numbers.replace(delimiter, ",");
-
             }
         }
 
         String[] numberArr = numbers.replace("\\n", ",").split(",");
-        int ans = 0;
 
         List<Integer> negativNumbers = new ArrayList<>();
 
-        for (String str : numberArr) {
-            Integer num = Integer.parseInt(str);
-            if (num < 0) {
-                negativNumbers.add(num);
-            } else if (num <= 1000) {
-                ans = ans + num;
-            }
-        }
+        var ans = Stream.of(numberArr)
+                .map(Integer::parseInt)
+                .filter(t -> t <= 1000)
+                .peek(t -> {
+                    if (t < 0) negativNumbers.add(t);
+                })
+                .reduce(0, (result, t) -> result + t);
+
         if (negativNumbers.isEmpty()) {
             return ans;
         } else {
