@@ -25,6 +25,8 @@ class CalculatorTest {
         Calculator calculator = new Calculator();
         Throwable exeption = Assertions.assertThrows(NegativesNotAllowedRuntimeExeption.class, () -> calculator.add("-1"));
         assertTrue(exeption.getMessage().equals("[-1]"));
+
+
     }
 
     @Test

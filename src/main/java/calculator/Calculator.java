@@ -7,7 +7,6 @@ public class Calculator {
 
     public int add(String numbers) throws NegativesNotAllowedRuntimeExeption {
 
-
         if (numbers.equals("")) {
             return 0;
         }
@@ -31,8 +30,7 @@ public class Calculator {
 
         List<Integer> negativNumbers = new ArrayList<>();
 
-        for (
-                String str : numberArr) {
+        for (String str : numberArr) {
             Integer num = Integer.parseInt(str);
             if (num < 0) {
                 negativNumbers.add(num);
@@ -48,7 +46,7 @@ public class Calculator {
 
     }
 
-    private String delimiterRefactor(String numbers){
+    private String delimiterRefactor(String numbers) {
         String numbersSubString = numbers.substring(2);
         boolean delimiterBrackets = false;
 
