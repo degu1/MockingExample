@@ -1,6 +1,8 @@
 package com.example;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -17,6 +19,20 @@ class EmployeeManagerTest {
         var actual = testBankService.payCalled;
 
         assertThat(actual).isTrue();
+    }
+
+    @Test
+    void emptyListOfEmplyees(){
+        EmployeeRepository employeeRepository = mock(EmployeeRepository.class);
+        BankService bankService = mock(BankService.class);
+        List<Employee> employees = new ArrayList<>();
+        when(employeeRepository.findAll()).thenReturn(employees);
+        EmployeeManager employeeManager = new EmployeeManager(employeeRepository,bankService);
+
+        var actual = employeeManager.payEmployees();
+        int expected = 0;
+
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
