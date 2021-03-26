@@ -11,12 +11,12 @@ class EmployeeManagerTest {
 
     @Test
     void payEmployeetestCallsBankServiceWithTestDouble() {
-        EmployeeRepository testEmployeeRepository = new TestEmployeeRepository();
-        TestBankService testBankService = new TestBankService();
-        EmployeeManager employeeManager = new EmployeeManager(testEmployeeRepository, testBankService);
+        EmployeeRepository testEmployeeRepository = new TestDoubleEmployeeRepository();
+        TestDoubleBankService testDoubleBankService = new TestDoubleBankService();
+        EmployeeManager employeeManager = new EmployeeManager(testEmployeeRepository, testDoubleBankService);
         employeeManager.payEmployees();
 
-        var actual = testBankService.payCalled;
+        var actual = testDoubleBankService.payCalled;
 
         assertThat(actual).isTrue();
     }

@@ -1,6 +1,7 @@
 package employeeRepository;
 
 import com.example.Employee;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -10,13 +11,10 @@ import java.util.List;
 
 class EmployeeRepositoryTest {
 
-    List<Employee> employeeList;
-
-    public EmployeeRepositoryTest() {
-        this.employeeList = List.of(new Employee("1", 100), new Employee("2", 100));
-    }
+    List<Employee> employeeList = List.of(new Employee("1", 100), new Employee("2", 100));
 
     @Test
+    @DisplayName("Test if findAll method returns all emplyee in memory.")
     void findAll() {
         EmployeeRepository employeeRepository = new EmployeeRepository(employeeList);
 
@@ -41,11 +39,9 @@ class EmployeeRepositoryTest {
         EmployeeRepository employeeRepository = new EmployeeRepository(employeeList);
         Employee employee = new Employee("3", 200);
 
-        var actual = employeeRepository.save(employee);
-        var expected = employee;
+        var actual = employeeRepository.getEmployees();
 
-        assertThat(actual).isEqualTo(expected);
-
+        assertThat(actual).contains(employee);
     }
 
     @Test
@@ -55,14 +51,14 @@ class EmployeeRepositoryTest {
         Employee employee = new Employee("1", 200);
         employeeRepository.save(employee);
 
-        int index = employeeRepository.employees.indexOf(employee);
+        int index = employeeRepository.getEmployees().indexOf(employee);
 
-        long actualCount = employeeRepository.employees.stream()
+        long actualCount = employeeRepository.getEmployees().stream()
                 .filter(t -> t.getId().equals("1"))
                 .count();
         long expectedCount = 1;
 
-        var actualSalary = employeeRepository.employees.get(index).getSalary();
+        var actualSalary = employeeRepository.getEmployees().get(index).getSalary();
         var expectedSalary = 200;
 
         assertThat(actualCount).isEqualTo(expectedCount);

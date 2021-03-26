@@ -6,7 +6,7 @@ import com.example.EmployeeRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestEmployeeRepository implements EmployeeRepository {
+public class TestDoubleEmployeeRepository implements EmployeeRepository {
     @Override
     public List<Employee> findAll() {
         Employee employee = new Employee("1",1000);

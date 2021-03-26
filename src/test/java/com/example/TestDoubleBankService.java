@@ -1,6 +1,6 @@
 package com.example;
 
-public class TestBankService implements BankService {
+public class TestDoubleBankService implements BankService {
 
     boolean payCalled = false;
 

@@ -7,13 +7,12 @@ import java.util.List;
 
 public class EmployeeRepository implements com.example.EmployeeRepository {
 
-    public List<Employee> employees = new ArrayList<>();
+    private List<Employee> employees = new ArrayList<>();
 
     public EmployeeRepository() {
     }
 
     public EmployeeRepository(List<Employee> employees) {
-
         this.employees.addAll(employees);
     }
 
@@ -24,7 +23,7 @@ public class EmployeeRepository implements com.example.EmployeeRepository {
 
     @Override
     public Employee save(Employee e) {
-        if(employees.contains(e)){
+        if (employees.contains(e)) {
             employees.remove(e);
         }
         employees.add(e);
@@ -32,5 +31,8 @@ public class EmployeeRepository implements com.example.EmployeeRepository {
         return e;
     }
 
+    public List<Employee> getEmployees() {
+        return employees;
+    }
 
 }

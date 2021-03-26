@@ -12,17 +12,8 @@ public class Calculator {
         if (numbers.equals("")) {
             return 0;
         }
-
         if (hasDelimiter(numbers)) {
-
-            if (numbers.indexOf("[") != -1 && numbers.indexOf("]") != -1) {
-                numbers = delimiterRefactor(numbers);
-            } else {
-                int index = numbers.indexOf("\\n");
-                String delimiter = numbers.substring(2, index);
-                numbers = numbers.substring(index + 2);
-                numbers = numbers.replace(delimiter, ",");
-            }
+            numbers = handelDelimiter(numbers);
         }
 
         String[] numberArr = numbers.replace("\\n", ",").split(",");
@@ -45,11 +36,21 @@ public class Calculator {
 
     }
 
+    private String handelDelimiter(String numbers){
+            if (numbers.indexOf("[") != -1 && numbers.indexOf("]") != -1) {
+                numbers = delimiterRefactor(numbers);
+            } else {
+                int index = numbers.indexOf("\\n");
+                String delimiter = numbers.substring(2, index);
+                numbers = numbers.substring(index + 2);
+                numbers = numbers.replace(delimiter, ",");
+            }
+            return numbers;
+    }
+
     private String delimiterRefactor(String numbers) {
         String numbersSubString = numbers.substring(2);
-        boolean delimiterBrackets = false;
-
-        delimiterBrackets = true;
+        boolean delimiterBrackets = true;
         while (delimiterBrackets) {
             int indexStart = numbersSubString.indexOf("[") + 1;
             int indexStop = numbersSubString.indexOf("]");
